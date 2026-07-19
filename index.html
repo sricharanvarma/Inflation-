@@ -1,140 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Inflatio</title>
+<!-- Gold Price History Table -->
+<div class="gold-history">
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <h2>Gold Price History & Key Market Drivers</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Approx. Gold Price (₹/10g)</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td><strong>1990–1993</strong></td>
+                <td>₹3,200–₹4,200</td>
+                <td>Gulf War ended, inflation eased, stronger global economy.</td>
+            </tr>
+
+            <tr>
+                <td><strong>1997–1999</strong></td>
+                <td>₹4,000–₹4,500</td>
+                <td>Asian Financial Crisis, central banks sold gold, strong U.S. dollar.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2001–2007</strong></td>
+                <td>₹4,300 → ₹10,800</td>
+                <td>Dot-com crash, weak U.S. dollar, rising global investment demand.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2008</strong></td>
+                <td>₹12,000–₹15,000</td>
+                <td>Global financial crisis increased demand for safe-haven assets.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2009–2011</strong></td>
+                <td>₹15,000 → ₹26,400</td>
+                <td>Quantitative easing, low interest rates, European debt crisis.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2011–2015</strong></td>
+                <td>₹26,000–₹27,000</td>
+                <td>U.S. recovery, stronger dollar, expectations of higher interest rates. The weaker rupee kept Indian prices elevated.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2016</strong></td>
+                <td>₹28,500–₹31,000</td>
+                <td>Brexit created global uncertainty.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2018–2019</strong></td>
+                <td>₹30,000 → ₹39,000</td>
+                <td>U.S.–China trade tensions and slowing global growth.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2020</strong></td>
+                <td>₹48,000 → ₹56,000</td>
+                <td>COVID-19 pandemic, lockdowns, monetary stimulus, low interest rates.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2021</strong></td>
+                <td>₹46,000–₹49,000</td>
+                <td>Economic reopening and rising bond yields.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2022</strong></td>
+                <td>₹50,000–₹55,000</td>
+                <td>Russia–Ukraine war and inflation; later offset by higher U.S. interest rates.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2023</strong></td>
+                <td>₹58,000–₹64,000</td>
+                <td>Banking-sector concerns and strong central-bank buying.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2024</strong></td>
+                <td>₹65,000–₹79,000</td>
+                <td>Record global prices, geopolitical tensions, expectations of interest-rate cuts.</td>
+            </tr>
+
+            <tr>
+                <td><strong>2025</strong></td>
+                <td>₹85,000–₹1,00,000+</td>
+                <td>Continued central-bank buying, global uncertainty, and record international gold prices.</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#0f172a;
-    font-family:'Inter',sans-serif;
+.gold-history{
+    width:96%;
+    margin:35px auto;
+    background:#ffffff;
+    border:1px solid #dcdcdc;
+    border-radius:10px;
     overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-/* Background Grid */
-body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:40px 40px;
-}
-
-/* Rising chart line */
-.chart{
-    position:absolute;
-    width:100%;
-    height:100%;
-    opacity:.08;
-}
-
-.logo{
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:24px 38px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:22px;
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(14px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
-
-/* Brand Icon */
-.icon{
-    width:62px;
-    height:62px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#22c55e,#3b82f6);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    box-shadow:0 10px 25px rgba(34,197,94,.3);
-}
-
-.icon svg{
-    width:34px;
-    height:34px;
-}
-
-/* Text */
-h1{
-    font-size:54px;
-    font-weight:800;
-    letter-spacing:-1px;
-    color:#ffffff;
-}
-
-h1 span{
-    background:linear-gradient(90deg,#22c55e,#60a5fa);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-p{
-    margin-top:6px;
-    color:#94a3b8;
-    font-size:15px;
+.gold-history h2{
+    margin:0;
+    padding:18px;
+    text-align:center;
+    background:#222;
+    color:white;
+    font-size:24px;
     letter-spacing:.5px;
 }
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#343a40;
+    color:white;
+}
+
+thead th{
+    padding:15px;
+    text-align:left;
+    font-size:15px;
+    position:sticky;
+    top:0;
+}
+
+tbody td{
+    padding:14px;
+    border-bottom:1px solid #ececec;
+    vertical-align:top;
+    font-size:14px;
+    line-height:1.6;
+}
+
+tbody tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+tbody tr:hover{
+    background:#eef7ff;
+    transition:.25s;
+}
+
+tbody td:nth-child(2){
+    font-weight:bold;
+    color:#0a7d35;
+}
+
 </style>
-</head>
-
-<body>
-
-<!-- Background SVG -->
-<svg class="chart" viewBox="0 0 1200 600" preserveAspectRatio="none">
-<polyline
-fill="none"
-stroke="#22c55e"
-stroke-width="6"
-points="
-0,520
-120,470
-220,490
-340,390
-470,420
-610,290
-720,310
-850,180
-980,220
-1100,110
-1200,60"/>
-</svg>
-
-<div class="logo">
-
-<div class="icon">
-<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-<polyline points="3 17 9 11 13 15 21 7"></polyline>
-<polyline points="16 7 21 7 21 12"></polyline>
-</svg>
-</div>
-
-<div>
-<h1>Infla<span>tio</span></h1>
-<p>Professional Inflation Metrics Dashboard</p>
-</div>
-
-</div>
-
-</body>
-</html>
