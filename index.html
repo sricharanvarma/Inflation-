@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,98 +6,270 @@
 <title>Inflation & Gold Intelligence Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#0F172A;color:#fff;}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#0F172A;
+color:#F8FAFC;
+}
 .container{max-width:1200px;margin:auto;padding:20px;}
 h1,h2{text-align:center;color:#FFD700;}
-.card,.section{background:#1E293B;border-radius:15px;padding:20px;margin-top:20px;box-shadow:0 0 15px rgba(255,215,0,.2);}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
-input{padding:12px;width:70%;border:none;border-radius:20px;}
-button{padding:12px 18px;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;margin:5px;}
-button:hover{opacity:.9;}
+.card,.section{
+background:#1E293B;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+box-shadow:0 0 15px rgba(255,215,0,0.15);
+}
 .hidden{display:none;}
-.progress{background:#334155;border-radius:20px;overflow:hidden;}
-.progress-bar{height:28px;width:78%;background:#FFD700;color:#000;font-weight:bold;text-align:center;line-height:28px;}
-.timeline-item{border-left:4px solid #FFD700;padding-left:10px;margin-bottom:10px;}
-canvas{background:white;border-radius:10px;padding:10px;}
-.clock{text-align:center;}
+input{
+width:80%;
+padding:18px;
+font-size:18px;
+border:none;
+border-radius:25px;
+}
+button{
+padding:14px 28px;
+font-size:16px;
+font-weight:bold;
+border:none;
+border-radius:10px;
+background:#3B82F6;
+color:white;
+cursor:pointer;
+margin-top:10px;
+}
+button:hover{opacity:.9;}
+.clock{text-align:center;margin-top:10px;}
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-top:20px;
+}
+.metric{
+background:#1E293B;
+padding:20px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 15px rgba(255,215,0,0.15);
+}
+.progress{
+background:#334155;
+border-radius:20px;
+overflow:hidden;
+}
+.progress-bar{
+width:78%;
+height:30px;
+background:#FFD700;
+color:black;
+font-weight:bold;
+line-height:30px;
+text-align:center;
+}
+.timeline-item{
+border-left:4px solid #FFD700;
+padding-left:12px;
+margin-bottom:10px;
+}
+.inflation-rate{
+font-size:100px;
+color:#FFD700;
+font-weight:bold;
+margin:10px 0;
+animation:glow 2s infinite;
+}
+@keyframes glow{
+0%{text-shadow:0 0 10px gold;}
+50%{text-shadow:0 0 30px gold;}
+100%{text-shadow:0 0 10px gold;}
+}
+canvas{
+background:white;
+padding:10px;
+border-radius:10px;
+}
 </style>
 </head>
 <body>
 <div class="container">
+
 <div id="homePage">
 <h1>Inflation Intelligence Dashboard</h1>
-<div class="card">
-<h2>Live Inflation Rate</h2>
-<p style="text-align:center;font-size:32px;">4.38%</p>
-<div class="clock" id="homeClock"></div>
-</div>
+
 <div class="card" style="text-align:center;">
 <h2>Search Commodity</h2>
-<input type="text" id="searchInput" placeholder="Search Gold">
-<button onclick="searchCommodity()">Search</button>
-<p>Popular Searches: Gold, Silver (Coming Soon)</p>
+<input type="text" id="searchInput" placeholder="Search Gold, Silver, etc.">
+<br>
+<button onclick="searchCommodity()">SEARCH</button>
+<p>Popular Searches: Gold</p>
 </div>
+
+<div class="card" style="text-align:center;">
+<h2>LIVE INFLATION RATE</h2>
+<p class="inflation-rate">4.38%</p>
+<h3 style="color:#F97316;">MODERATE INFLATION</h3>
+<div id="homeClock" class="clock"></div>
+</div>
+
 <div class="section">
 <h2>Inflation Insights</h2>
 <ul>
 <li>Gold performs well during inflationary periods.</li>
-<li>Inflation is currently moderate.</li>
-<li>Precious metals are considered safe-haven assets.</li>
+<li>Precious metals are safe-haven assets.</li>
+<li>Gold is a popular inflation hedge.</li>
+<li>Inflation affects purchasing power.</li>
 </ul>
+</div>
+
+<div class="section">
+<h2>Did You Know?</h2>
+<p>Gold has preserved purchasing power for over 5,000 years.</p>
 </div>
 </div>
 
 <div id="goldPage" class="hidden">
+
 <h1>Gold Intelligence Dashboard</h1>
-<button onclick="goHome()">Back to Home</button>
-<div class="clock" id="goldClock"></div>
-<div class="section">
 <div style="text-align:center;">
-<button>1D</button><button>1W</button><button>1M</button><button>6M</button><button>1Y</button><button>ALL</button>
+<button onclick="goHome()">Back to Inflation Dashboard</button>
+</div>
+<div id="goldClock" class="clock"></div>
+
+<div class="section">
+<h2>Gold Price Chart</h2>
+<div style="text-align:center;">
+<button>1D</button>
+<button>1W</button>
+<button>1M</button>
+<button>6M</button>
+<button>1Y</button>
+<button>ALL</button>
 </div>
 <canvas id="goldChart"></canvas>
 </div>
+
 <div class="card-grid">
-<div class="card"><h3>Gold Price</h3><p>₹97,800</p></div>
-<div class="card"><h3>Inflation Rate</h3><p>4.38%</p></div>
-<div class="card"><h3>Market Sentiment</h3><p>Bullish</p></div>
-<div class="card"><h3>Daily Change</h3><p>+0.58%</p></div>
-<div class="card"><h3>Highest Price</h3><p>₹98,500</p></div>
-<div class="card"><h3>Lowest Price</h3><p>₹96,800</p></div>
-<div class="card"><h3>Gold Demand</h3><p>High</p></div>
-<div class="card"><h3>USD/INR</h3><p>₹86.50</p></div>
+<div class="metric"><h3>Gold Price</h3><p>₹97,800</p></div>
+<div class="metric"><h3>Inflation Rate</h3><p>4.38%</p></div>
+<div class="metric"><h3>Daily Change</h3><p>+0.58%</p></div>
+<div class="metric"><h3>Market Sentiment</h3><p>Bullish</p></div>
+<div class="metric"><h3>Highest Price</h3><p>₹98,500</p></div>
+<div class="metric"><h3>Lowest Price</h3><p>₹96,800</p></div>
+<div class="metric"><h3>Gold Demand</h3><p>High</p></div>
+<div class="metric"><h3>USD/INR</h3><p>₹86.50</p></div>
 </div>
+
 <div class="section">
 <h2>Buy / Sell Index</h2>
-<div class="progress"><div class="progress-bar">78% - STRONG BUY</div></div>
+<div class="progress">
+<div class="progress-bar">78% - STRONG BUY</div>
 </div>
+</div>
+
 <div class="section">
-<h2>Recommendation</h2>
-<p><b>BUY</b> (87% Confidence)</p>
-<ul><li>Positive gold trend.</li><li>Inflation supports gold demand.</li><li>Bullish market sentiment.</li></ul>
+<h2>Should You Buy Gold?</h2>
+<p><strong>BUY</strong> | Confidence Score: 87%</p>
+<ul>
+<li>Positive long-term trend.</li>
+<li>Inflation supports gold demand.</li>
+<li>Bullish market sentiment.</li>
+</ul>
 </div>
+
+<div class="section">
+<h2>Gold vs Inflation Analysis</h2>
+<p>Historically, gold prices tend to perform well during inflationary periods.</p>
+</div>
+
 <div class="section">
 <h2>Historical Gold Trends</h2>
 <div class="timeline-item"><b>2000:</b> Global gold demand expanded.</div>
 <div class="timeline-item"><b>2008:</b> Financial crisis boosted gold.</div>
-<div class="timeline-item"><b>2011:</b> Record highs.</div>
+<div class="timeline-item"><b>2011:</b> Gold hit record highs.</div>
 <div class="timeline-item"><b>2013:</b> Market correction.</div>
 <div class="timeline-item"><b>2020:</b> COVID-19 rally.</div>
-<div class="timeline-item"><b>2024:</b> Central bank accumulation.</div>
+<div class="timeline-item"><b>2024:</b> Central bank purchases increased.</div>
 <div class="timeline-item"><b>2026:</b> Inflation-driven growth.</div>
 </div>
-<div class="section"><h2>Investment Tips</h2><ul><li>Diversify investments.</li><li>Invest during corrections.</li><li>Monitor inflation trends.</li></ul></div>
-<div class="section"><h2>Gold Market News</h2><ul><li>Gold remains a preferred safe-haven asset.</li><li>Demand continues to rise.</li><li>Investors remain optimistic.</li></ul></div>
+
+<div class="section">
+<h2>Investment Tips</h2>
+<ul>
+<li>Diversify your investments.</li>
+<li>Invest during market corrections.</li>
+<li>Think long term.</li>
+</ul>
 </div>
+
+<div class="section">
+<h2>Market News</h2>
+<ul>
+<li>Gold remains a preferred safe-haven asset.</li>
+<li>Inflation supports gold prices.</li>
+<li>Global demand remains strong.</li>
+</ul>
 </div>
+
+</div>
+
+</div>
+
 <script>
-function formatIndianDateTime(){const now=new Date();return now.toLocaleString('en-IN',{timeZone:'Asia/Kolkata',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true})+' IST';}
-function updateClocks(){document.getElementById('homeClock').innerText='Updated: '+formatIndianDateTime();document.getElementById('goldClock').innerText='Updated: '+formatIndianDateTime();}
-setInterval(updateClocks,1000);updateClocks();
-function searchCommodity(){let value=document.getElementById('searchInput').value.trim().toLowerCase();if(value==='gold'){document.getElementById('homePage').classList.add('hidden');document.getElementById('goldPage').classList.remove('hidden');}else{alert('Coming Soon! Only Gold Dashboard is available.');}}
-function goHome(){document.getElementById('goldPage').classList.add('hidden');document.getElementById('homePage').classList.remove('hidden');}
-const ctx=document.getElementById('goldChart').getContext('2d');
-new Chart(ctx,{type:'line',data:{labels:['2020','2021','2022','2023','2024','2025','2026'],datasets:[{label:'Gold Price (₹)',data:[50000,48000,52000,60000,72000,85000,97800],borderColor:'#FFD700',backgroundColor:'rgba(255,215,0,.2)',fill:true,tension:0.3}]},options:{responsive:true}});
+function formatIndianDateTime(){
+const now = new Date();
+return now.toLocaleString('en-IN',{
+timeZone:'Asia/Kolkata',
+day:'2-digit',
+month:'2-digit',
+year:'numeric',
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit',
+hour12:true
+}) + " IST";
+}
+
+function updateClocks(){
+document.getElementById("homeClock").innerText = "Updated: " + formatIndianDateTime();
+document.getElementById("goldClock").innerText = "Updated: " + formatIndianDateTime();
+}
+setInterval(updateClocks,1000);
+updateClocks();
+
+function searchCommodity(){
+const value = document.getElementById("searchInput").value.trim().toLowerCase();
+if(value === "gold"){
+document.getElementById("homePage").classList.add("hidden");
+document.getElementById("goldPage").classList.remove("hidden");
+}else{
+alert("Coming Soon! Currently only Gold is available.");
+}
+}
+
+function goHome(){
+document.getElementById("goldPage").classList.add("hidden");
+document.getElementById("homePage").classList.remove("hidden");
+}
+
+const ctx = document.getElementById("goldChart");
+new Chart(ctx,{
+type:"line",
+data:{
+labels:["2020","2021","2022","2023","2024","2025","2026"],
+datasets:[{
+label:"Gold Price (₹)",
+data:[50000,48000,52000,60000,72000,85000,97800],
+borderColor:"#FFD700",
+backgroundColor:"rgba(255,215,0,0.2)",
+fill:true,
+tension:0.3
+}]
+},
+options:{responsive:true}
+});
 </script>
 </body>
 </html>
