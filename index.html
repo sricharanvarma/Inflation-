@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inflatio</title>
 
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    font-family:'Inter',sans-serif;
+    overflow:hidden;
+}
+
+/* Background Grid */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:40px 40px;
+}
+
+/* Rising chart line */
+.chart{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:.08;
+}
+
+.logo{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:24px 38px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(14px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+/* Brand Icon */
+.icon{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#22c55e,#3b82f6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 25px rgba(34,197,94,.3);
+}
+
+.icon svg{
+    width:34px;
+    height:34px;
+}
+
+/* Text */
+h1{
+    font-size:54px;
+    font-weight:800;
+    letter-spacing:-1px;
+    color:#ffffff;
+}
+
+h1 span{
+    background:linear-gradient(90deg,#22c55e,#60a5fa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+    margin-top:6px;
+    color:#94a3b8;
+    font-size:15px;
+    letter-spacing:.5px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background SVG -->
+<svg class="chart" viewBox="0 0 1200 600" preserveAspectRatio="none">
+<polyline
+fill="none"
+stroke="#22c55e"
+stroke-width="6"
+points="
+0,520
+120,470
+220,490
+340,390
+470,420
+610,290
+720,310
+850,180
+980,220
+1100,110
+1200,60"/>
+</svg>
+
+<div class="logo">
+
+<div class="icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="3 17 9 11 13 15 21 7"></polyline>
+<polyline points="16 7 21 7 21 12"></polyline>
+</svg>
+</div>
+
+<div>
+<h1>Infla<span>tio</span></h1>
+<p>Professional Inflation Metrics Dashboard</p>
+</div>
+
+</div>
+
+</body>
+</html>
