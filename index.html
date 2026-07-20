@@ -3,273 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inflation & Gold Intelligence Dashboard</title>
+<title>Inflation Tracker for Commodities</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#0F172A;
-color:#F8FAFC;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#0F172A;color:#F8FAFC;}
 .container{max-width:1200px;margin:auto;padding:20px;}
-h1,h2{text-align:center;color:#FFD700;}
-.card,.section{
-background:#1E293B;
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-box-shadow:0 0 15px rgba(255,215,0,0.15);
-}
-.hidden{display:none;}
-input{
-width:80%;
-padding:18px;
-font-size:18px;
-border:none;
-border-radius:25px;
-}
-button{
-padding:14px 28px;
-font-size:16px;
-font-weight:bold;
-border:none;
-border-radius:10px;
-background:#3B82F6;
-color:white;
-cursor:pointer;
-margin-top:10px;
-}
-button:hover{opacity:.9;}
-.clock{text-align:center;margin-top:10px;}
-.card-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-margin-top:20px;
-}
-.metric{
-background:#1E293B;
-padding:20px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 0 15px rgba(255,215,0,0.15);
-}
-.progress{
-background:#334155;
-border-radius:20px;
-overflow:hidden;
-}
-.progress-bar{
-width:78%;
-height:30px;
-background:#FFD700;
-color:black;
-font-weight:bold;
-line-height:30px;
-text-align:center;
-}
-.timeline-item{
-border-left:4px solid #FFD700;
-padding-left:12px;
-margin-bottom:10px;
-}
-.inflation-rate{
-font-size:100px;
-color:#FFD700;
-font-weight:bold;
-margin:10px 0;
-animation:glow 2s infinite;
-}
-@keyframes glow{
-0%{text-shadow:0 0 10px gold;}
-50%{text-shadow:0 0 30px gold;}
-100%{text-shadow:0 0 10px gold;}
-}
-canvas{
-background:white;
-padding:10px;
-border-radius:10px;
-}
+h1{text-align:center;color:#FFD700;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
+.card{background:#1E293B;padding:18px;border-radius:15px;box-shadow:0 0 15px rgba(255,215,0,.15);}
+.search-box{text-align:center;margin:25px 0;}
+input{padding:12px;width:60%;max-width:450px;border-radius:10px;border:none;}
+button{padding:12px 18px;border:none;border-radius:10px;cursor:pointer;}
+.section{background:#1E293B;padding:20px;border-radius:15px;margin-top:20px;}
+#commodityDashboard{display:none;}
+ul{padding-left:20px;}
+canvas{background:white;border-radius:10px;padding:5px;}
 </style>
 </head>
 <body>
 <div class="container">
-
-<div id="homePage">
-<h1>Inflation Intelligence Dashboard</h1>
-
-<div class="card" style="text-align:center;">
-<h2>Search Commodity</h2>
-<input type="text" id="searchInput" placeholder="Search Gold, Silver, etc.">
-<br>
-<button onclick="searchCommodity()">SEARCH</button>
-<p>Popular Searches: Gold</p>
+<h1>Inflation Tracker for Commodities</h1>
+<div class="search-box">
+<input id="commodityInput" placeholder="Search any commodity (Gold, Silver, Oil, Coffee...)" />
+<button onclick="showDashboard()">Search</button>
 </div>
-
-<div class="card" style="text-align:center;">
-<h2>LIVE INFLATION RATE</h2>
-<p class="inflation-rate">4.38%</p>
-<h3 style="color:#F97316;">MODERATE INFLATION</h3>
-<div id="homeClock" class="clock"></div>
-</div>
-
-<div class="section">
-<h2>Inflation Insights</h2>
-<ul>
-<li>Gold performs well during inflationary periods.</li>
-<li>Precious metals are safe-haven assets.</li>
-<li>Gold is a popular inflation hedge.</li>
-<li>Inflation affects purchasing power.</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Did You Know?</h2>
-<p>Gold has preserved purchasing power for over 5,000 years.</p>
-</div>
-</div>
-
-<div id="goldPage" class="hidden">
-
-<h1>Gold Intelligence Dashboard</h1>
-<div style="text-align:center;">
-<button onclick="goHome()">Back to Inflation Dashboard</button>
-</div>
-<div id="goldClock" class="clock"></div>
-
-<div class="section">
-<h2>Gold Price Chart</h2>
-<div style="text-align:center;">
-<button>1D</button>
-<button>1W</button>
-<button>1M</button>
-<button>6M</button>
-<button>1Y</button>
-<button>ALL</button>
-</div>
-<canvas id="goldChart"></canvas>
-</div>
-
 <div class="card-grid">
-<div class="metric"><h3>Gold Price</h3><p>₹97,800</p></div>
-<div class="metric"><h3>Inflation Rate</h3><p>4.38%</p></div>
-<div class="metric"><h3>Daily Change</h3><p>+0.58%</p></div>
-<div class="metric"><h3>Market Sentiment</h3><p>Bullish</p></div>
-<div class="metric"><h3>Highest Price</h3><p>₹98,500</p></div>
-<div class="metric"><h3>Lowest Price</h3><p>₹96,800</p></div>
-<div class="metric"><h3>Gold Demand</h3><p>High</p></div>
-<div class="metric"><h3>USD/INR</h3><p>₹86.50</p></div>
+<div class="card"><h3>Live Inflation Rate</h3><p>4.38%</p><p>+0.46% this month</p></div>
+<div class="card"><h3>Market Sentiment</h3><p>Bullish</p></div>
+<div class="card"><h3>Top Gainers</h3><p>Gold, Coffee, Silver</p></div>
+<div class="card"><h3>Top Losers</h3><p>Crude Oil, Cotton</p></div>
 </div>
-
 <div class="section">
-<h2>Buy / Sell Index</h2>
-<div class="progress">
-<div class="progress-bar">78% - STRONG BUY</div>
+<h2>Commodity Market Overview</h2>
+<p>Gold +2.4% | Silver +1.8% | Copper +1.1% | Oil -0.9%</p>
 </div>
-</div>
-
 <div class="section">
-<h2>Should You Buy Gold?</h2>
-<p><strong>BUY</strong> | Confidence Score: 87%</p>
-<ul>
-<li>Positive long-term trend.</li>
-<li>Inflation supports gold demand.</li>
-<li>Bullish market sentiment.</li>
-</ul>
+<h2>Overall Commodity Trend</h2>
+<canvas id="marketChart"></canvas>
 </div>
-
 <div class="section">
-<h2>Gold vs Inflation Analysis</h2>
-<p>Historically, gold prices tend to perform well during inflationary periods.</p>
+<p>Search a commodity to see detailed analysis.</p>
 </div>
-
-<div class="section">
-<h2>Historical Gold Trends</h2>
-<div class="timeline-item"><b>2000:</b> Global gold demand expanded.</div>
-<div class="timeline-item"><b>2008:</b> Financial crisis boosted gold.</div>
-<div class="timeline-item"><b>2011:</b> Gold hit record highs.</div>
-<div class="timeline-item"><b>2013:</b> Market correction.</div>
-<div class="timeline-item"><b>2020:</b> COVID-19 rally.</div>
-<div class="timeline-item"><b>2024:</b> Central bank purchases increased.</div>
-<div class="timeline-item"><b>2026:</b> Inflation-driven growth.</div>
+<div id="commodityDashboard">
+<div class="section"><h2 id="commodityTitle"></h2><p id="livePrice">Fetching live price if supported...</p></div>
+<div class="section"><h2>Price Changes</h2><ul><li>1 Day: +1.2%</li><li>1 Week: +2.5%</li><li>1 Month: +6.1%</li><li>6 Months: +12.3%</li><li>1 Year: +23.6%</li></ul></div>
+<div class="section"><h2>Inflation Analysis</h2><p>Current Inflation Rate: 4.38%</p><p>Trend: Increasing</p></div>
+<div class="section"><h2>Historical Trends</h2><ul><li>2008 Financial Crisis</li><li>2011 Commodity Boom</li><li>2020 COVID Rally</li><li>2024 Inflation Surge</li></ul></div>
+<div class="section"><h2>Investment Recommendation</h2><p>BUY / HOLD / SELL recommendations can be calculated from live market data.</p></div>
+<div class="section"><h2>Latest Commodity News</h2><p>Connect a news API later for live headlines.</p></div>
 </div>
-
-<div class="section">
-<h2>Investment Tips</h2>
-<ul>
-<li>Diversify your investments.</li>
-<li>Invest during market corrections.</li>
-<li>Think long term.</li>
-</ul>
 </div>
-
-<div class="section">
-<h2>Market News</h2>
-<ul>
-<li>Gold remains a preferred safe-haven asset.</li>
-<li>Inflation supports gold prices.</li>
-<li>Global demand remains strong.</li>
-</ul>
-</div>
-
-</div>
-
-</div>
-
 <script>
-function formatIndianDateTime(){
-const now = new Date();
-return now.toLocaleString('en-IN',{
-timeZone:'Asia/Kolkata',
-day:'2-digit',
-month:'2-digit',
-year:'numeric',
-hour:'2-digit',
-minute:'2-digit',
-second:'2-digit',
-hour12:true
-}) + " IST";
-}
+new Chart(document.getElementById('marketChart'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{label:'Commodity Index',data:[100,103,104,106,108,110]}]}});
 
-function updateClocks(){
-document.getElementById("homeClock").innerText = "Updated: " + formatIndianDateTime();
-document.getElementById("goldClock").innerText = "Updated: " + formatIndianDateTime();
-}
-setInterval(updateClocks,1000);
-updateClocks();
-
-function searchCommodity(){
-const value = document.getElementById("searchInput").value.trim().toLowerCase();
-if(value === "gold"){
-document.getElementById("homePage").classList.add("hidden");
-document.getElementById("goldPage").classList.remove("hidden");
+async function fetchGoldPrice(){
+const apiKey='108778129aad291ac7351741d05c8048';
+try{
+const url=`https://api.metalpriceapi.com/v1/latest?api_key=${apiKey}&base=USD&currencies=XAU,INR`;
+const res=await fetch(url);
+const data=await res.json();
+if(data.success){
+const usdPerOunce=1/data.rates.XAU;
+const inrPerOunce=usdPerOunce*data.rates.INR;
+const inrPerGram=inrPerOunce/31.1035;
+const inr10=inrPerGram*10;
+document.getElementById('livePrice').innerText='Approx. Live Gold Price (10g): ₹ '+inr10.toFixed(2);
 }else{
-alert("Coming Soon! Currently only Gold is available.");
+document.getElementById('livePrice').innerText='Live data unavailable.';
 }
-}
-
-function goHome(){
-document.getElementById("goldPage").classList.add("hidden");
-document.getElementById("homePage").classList.remove("hidden");
+}catch(e){document.getElementById('livePrice').innerText='Unable to fetch live price.';}
 }
 
-const ctx = document.getElementById("goldChart");
-new Chart(ctx,{
-type:"line",
-data:{
-labels:["2020","2021","2022","2023","2024","2025","2026"],
-datasets:[{
-label:"Gold Price (₹)",
-data:[50000,48000,52000,60000,72000,85000,97800],
-borderColor:"#FFD700",
-backgroundColor:"rgba(255,215,0,0.2)",
-fill:true,
-tension:0.3
-}]
-},
-options:{responsive:true}
-});
+function showDashboard(){
+const commodity=document.getElementById('commodityInput').value.trim();
+if(!commodity){return;}
+document.getElementById('commodityDashboard').style.display='block';
+document.getElementById('commodityTitle').innerText=commodity.toUpperCase()+' Dashboard';
+if(commodity.toLowerCase()==='gold'){fetchGoldPrice();}
+else{document.getElementById('livePrice').innerText='Live API integration for '+commodity+' can be added later.';}
+document.getElementById('commodityDashboard').scrollIntoView({behavior:'smooth'});
+}
 </script>
 </body>
 </html>
